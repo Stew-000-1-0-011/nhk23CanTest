@@ -22,8 +22,8 @@ void init_can_msp_filter()
 	fc[0] = FilterConfig{};
 
 	FilterManager::initialize(filter_bank_size, fc);
-	const auto f = FilterManager::make_mask32(0x300, 0x0);
-	if(!FilterManager::set_filter(0, f))
+	const auto filter = FilterManager::make_mask32(0x300, 0x0);
+	if(!FilterManager::set_filter(0, filter))
 	{
 		error_msg = "Filter cannot set.";
 		Error_Handler();
