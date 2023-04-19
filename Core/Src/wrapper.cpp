@@ -28,6 +28,8 @@ void init_can_msp_filter()
 		error_msg = "Filter cannot set.";
 		Error_Handler();
 	}
+
+	// 受信
 	FilterManager::activate(0);
 }
 
@@ -36,11 +38,6 @@ extern "C" void main_cpp(CAN_HandleTypeDef *const hcan) noexcept
 	init_can_msp_filter();
 
 	 CanBus can_bus{can1};
-
-//	// HALを使う場合はここでHAL_CAN_Startを呼ぶ
-//	{
-//		HAL_CAN_Start(hcan);
-//	}
 
 	while(true)
 	{
@@ -59,34 +56,5 @@ extern "C" void main_cpp(CAN_HandleTypeDef *const hcan) noexcept
 //
 //		 	(void)can_bus.post(0x300, tx_data);
 //		 }
-
-
-//		// HALで送信
-//		{
-//			CAN_TxHeaderTypeDef tx_header;
-//			tx_header.StdId = 0x300;
-//			tx_header.ExtId = 0;
-//			tx_header.RTR = CAN_RTR_DATA;
-//			tx_header.IDE = CAN_ID_STD;
-//			tx_header.DLC = 8;
-//
-//			u8 buffer[] = {'H', 'E', 'L', 'L', 'O', 'C', 'R', 'S'};
-//
-//			u32 tx_mailbox;
-//			auto t = HAL_GetTick();
-//
-//			if(HAL_CAN_GetTxMailboxesFreeLevel(hcan))
-//			{
-////				HAL_Delay(1000);
-//				if(const auto now = HAL_GetTick(); t - now > 100)
-//				{
-//					t = now;
-//					HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
-//				}
-//				HAL_CAN_AddTxMessage(hcan, &tx_header, buffer, &tx_mailbox);
-//			}
-//		}
-
-
 	}
 }
